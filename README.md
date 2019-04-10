@@ -7,6 +7,11 @@
                                                                                                               
           1. Elegant solution by  "Keintz, Mark" <mkeintz@WHARTON.UPENN.EDU>                                  
           2. DOW (without a by on the second loop)                                                            
+          3. Curobs Paul Dorfman, Bartosz Jablonski, and Nat Wooding                                          
+             Paul Dorfman sashole@bellsouth.net                                                               
+             Bartosz Jablonski yabwon@gmail.com                                                               
+             Nat Wooding <nathani@verizon.net>                                                                
+                                                                                                              
                                                                                                               
     Nuce aopllication of Paul Dorfmans DOW without a by on the second loop.                                   
                                                                                                               
@@ -93,6 +98,18 @@
         drop _n _n2;                                                                                          
         run;                                                                                                  
                                                                                                               
+     3. Curobs Paul Dorfman, Bartosz Jablonski, and Nat Wooding                                               
+                                                                                                              
+       data want ;                                                                                            
+         do _n_ = 1 by 1 until (last.sex) ;                                                                   
+           set class curobs = p ;                                                                             
+           by sex ;                                                                                           
+         end ;                                                                                                
+         if _n_ > 1 ;                                                                                         
+         p +- 1 ;                                                                                             
+         set class point = p ;                                                                                
+       run ;                                                                                                  
+                                                                                                              
     *            _               _                                                                            
       ___  _   _| |_ _ __  _   _| |_                                                                          
      / _ \| | | | __| '_ \| | | | __|                                                                         
@@ -108,7 +125,7 @@
      1     Jane        F      12     59.8      84.5                                                           
      2     Jeffrey     M      13     62.5      84.0                                                           
                                                                                                               
-                                                                                                              
+                                                                      
                                                                                                               
                                                                                 
                                                                                                              
