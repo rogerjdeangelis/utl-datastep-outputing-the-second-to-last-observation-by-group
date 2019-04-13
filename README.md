@@ -11,7 +11,56 @@
              Paul Dorfman sashole@bellsouth.net                                                               
              Bartosz Jablonski yabwon@gmail.com                                                               
              Nat Wooding <nathani@verizon.net>                                                                
-                                                                                                              
+        
+    ******************************************                                   
+    Recent gereral solution for nth last by                                      
+                                                                                 
+    Keintz, Mark                                                                 
+    mkeintz@wharton.upenn.edu                                                    
+    and                                                                          
+    Yinglin (Max) Wu                                                             
+    yinglinwu@gmail.com                                                          
+                                                                                 
+    data have;                                                                   
+    input x y;                                                                   
+    cards4;                                                                      
+    1 2                                                                          
+    1 2                                                                          
+    1 4                                                                          
+    1 4                                                                          
+    1 4                                                                          
+    2 4                                                                          
+    3 5                                                                          
+    3 6                                                                          
+    3 6                                                                          
+    3 6                                                                          
+    3 5                                                                          
+    ;;;;                                                                         
+    run;quit;                                                                    
+                                                                                 
+    Mark, this method is so neat.                                                
+                                                                                 
+    Slightly modifying it could be used to handle n-th last                      
+    and the case where the key value gets repeated fewer than n times.           
+                                                                                 
+    Just make sure the lag period is one less than the desired offset …          
+    and that the second SET statement drops the by-variable.                     
+                                                                                 
+    %let x=5;                                                                    
+    %let lag=%eval(&x-1);                                                        
+                                                                                 
+    data want;                                                                   
+      set have(keep=grp);                                                        
+      by grp;                                                                    
+      if _n_>=&x then set have (drop=grp);                                       
+      if last.grp and lag&lag(grp)=grp;                                          
+    run;                                                                         
+                                                                                 
+    The “and group=lag&lag(group)” condition                                     
+    makes sure that the by-group is of sufficient size.                          
+    **************************************************                           
+                                                                                 
+     Other Solutions                                                                                                     
                                                                                                               
     Nuce aopllication of Paul Dorfmans DOW without a by on the second loop.                                   
                                                                                                               
